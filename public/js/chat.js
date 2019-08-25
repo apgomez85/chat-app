@@ -17,10 +17,6 @@ const { username, room } = Qs.parse(location.search, {
   ignoreQueryPrefix: true
 });
 
-// const autoScroll = () => {
-//   $messages.scrollTop = $messages.scrollHeight;
-// };
-
 const autoscroll = () => {
   // New message element
   const $newMessage = $messages.lastElementChild;
@@ -45,7 +41,6 @@ const autoscroll = () => {
 };
 
 socket.on('message', message => {
-  console.log(message);
   const html = Mustache.render(messageTemplate, {
     username: message.username,
     message: message.text,
@@ -56,7 +51,6 @@ socket.on('message', message => {
 });
 
 socket.on('locationMessage', locationMessage => {
-  console.log(locationMessage);
   const html = Mustache.render(urlTemplate, {
     username: locationMessage.username,
     url: locationMessage.url,
@@ -88,8 +82,6 @@ $messageForm.addEventListener('submit', e => {
     if (error) {
       return console.log(error);
     }
-
-    console.log('Message delivered!');
   });
 });
 
@@ -108,7 +100,6 @@ $sendLocationButton.addEventListener('click', () => {
       },
       () => {
         $sendLocationButton.removeAttribute('disabled');
-        console.log('Location shared!');
       }
     );
   });
